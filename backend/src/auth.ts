@@ -1,17 +1,15 @@
 import { Router } from 'express';
 import pool from './db';
 import { hashPassword, comparePassword, generateToken } from './authUtils';
+import { requireFields } from './middleware/validate';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'changeme';
 
 // Register endpoint
-router.post('/register', async (req, res) => {
+router.post('/register', requireFields(['username', 'password']), async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password required' });
-  }
   try {
     const hashed = await hashPassword(password);
     const result = await pool.query(
@@ -31,11 +29,8 @@ router.post('/register', async (req, res) => {
 });
 
 // Login endpoint
-router.post('/login', async (req, res) => {
+router.post('/login', requireFields(['username', 'password']), async (req, res) => {
   const { username, password } = req.body;
-  if (!username || !password) {
-    return res.status(400).json({ error: 'Username and password required' });
-  }
   try {
     const result = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
     const user = result.rows[0];
