@@ -1,2 +1,0 @@
-# SocialsManager
-SocialsManagerAI
