@@ -27,3 +27,7 @@ Best practices:
 - Use environment variables for credentials.
 - Avoid committing sensitive information to the repository.
 - Log integration activities in `AGENT_LOG.md`.
+
+## Backend Best Practices
+- Use validation middleware for all new endpoints to ensure data integrity and user-friendly errors.
+- Standardize error responses for easier frontend integration.

@@ -15,3 +15,7 @@
 - Review others' code and provide constructive feedback.
 - Use environment variables for secrets and API keys.
 - Write and run tests for all modules (backend and frontend).
+
+## Validation & Error Handling
+- All new backend endpoints must use validation middleware to check required fields and return clear error messages.
+- Follow the example in `src/middleware/validate.ts` and apply to all routes.
